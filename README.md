@@ -1,6 +1,8 @@
 # PhoneNumberMiner
 
-Mines real people's phone numbers which are publicly available on the Internet
+[![Build Status](https://travis-ci.org/dwilkie/phone_number_miner.png)](https://travis-ci.org/dwilkie/phone_number_miner)
+
+Mines real people's phone numbers which are publicly available on the Internet. This is an example only. Please don't use it to spam people.
 
 ## Installation
 
