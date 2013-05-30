@@ -1,6 +1,6 @@
 # PhoneNumberMiner
 
-TODO: Write a gem description
+Mines real people's phone numbers which are publicly available on the Internet
 
 ## Installation
 
@@ -18,7 +18,12 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Here's an example of mining phone numbers from [Angkor Thom Media](http://akt-media.com/friendship.php?f=2)
+
+    require 'phone_number_miner'
+
+    angkor_thom = PhoneNumberMiner::AngkorThom.new
+    puts angkor_thom.mine!.count
 
 ## Contributing
 

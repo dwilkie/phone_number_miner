@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = PhoneNumberMiner::VERSION
   spec.authors       = ["David Wilkie"]
   spec.email         = ["dwilkie@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = "Mines publicly available phone numbers from various sources on the Internet"
+  spec.summary       = "Mines phone numbers from the Internet"
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -18,6 +18,11 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "mechanize"
+
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "vcr"
+  spec.add_development_dependency "fakeweb"
 end
