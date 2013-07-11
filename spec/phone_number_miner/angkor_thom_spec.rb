@@ -4,36 +4,39 @@ require 'phone_number_miner/angkor_thom'
 module PhoneNumberMiner
   describe AngkorThom do
 
-    def with_vcr(&block)
+    def with_vcr(options = {}, &block)
+      options[:google_translate_cassette] ||= :google_translate
       VCR.use_cassette(:angkor_thom) do
-        yield
+        VCR.use_cassette(options[:google_translate_cassette]) do
+          yield
+        end
       end
     end
 
     describe "#mine!(angkor_thom_page = nil, dara_page = nil)" do
       it "should return all numbers with the prefix '855'" do
         results = with_vcr { subject.mine! }
-        results.each do |result|
+        results.each do |result, metadata|
           result.should =~ /^855/
+          metadata.should have_key("gender")
+          metadata.should have_key("age")
+          metadata.should have_key("name")
+          metadata.should have_key("location")
+          [nil, "m", "f"].should include(metadata["gender"])
         end
-      end
-
-      it "should return only unique numbers" do
-        results = with_vcr { subject.mine! }
-        results.should == results.uniq
       end
 
       context "passing no args" do
         it "should get all the numbers from the angkor thom catalogue and the dara catalogue" do
           results = with_vcr { subject.mine! }
-          results.size.should == 556 # from VCR cassette
+          results.size.should == 554 # from VCR cassette
         end
       end
 
       context "passing an index for the angkor thom catalogue" do
         it "should get phone numbers pages with an id > the given index" do
-          results = with_vcr { subject.mine!(423) }
-          results.size.should == 431 # from VCR cassette
+          results = with_vcr(:google_translate_cassette => :google_translate_subset) { subject.mine!(423) }
+          results.size.should == 430 # from VCR cassette
         end
       end
 
