@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'spec_helper'
 require 'phone_number_miner/angkor_thom'
 
