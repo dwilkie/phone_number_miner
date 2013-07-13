@@ -4,25 +4,12 @@ module PhoneNumberMiner
   require 'mechanize'
 
   class AngkorThom
-    require 'httparty'
+    require 'google/transliterate'
 
     # Gets data from the following catalogue pages
     # http://akt-media.com/friendship.php?f=2
     # http://akt-media.com/friendship.php?f=3
 
-    include HTTParty
-
-    class Parser::Simple < HTTParty::Parser
-      require 'csv'
-
-      def parse
-        CSV.parse(body.gsub(/(?:\[|\])/, ""))[0][3].gsub(/\s+/, "")
-      end
-    end
-
-    parser Parser::Simple
-
-    GOOGLE_TRANSLATE_URL = "http://translate.google.com/translate_a/t"
     BASE_URL = "http://akt-media.com/friendship.php?f="
     COUNTRY_ID = "855"
     ANGKOR_THOM_CATALOGUE_ID = 2
@@ -104,21 +91,11 @@ module PhoneNumberMiner
     end
 
     def name(metadata)
-      google_translate(metadata[1].strip) if metadata[1]
-    end
-
-    def google_translate(text)
-      self.class.get(
-        GOOGLE_TRANSLATE_URL,
-        :query => {
-          :client => "t",
-          :sl => "kh",
-          :ie => "UTF-8",
-          :oe => "UTF-8",
-          :q => text
-        },
-        :headers => {"User-Agent" => "Mozilla/5.0"}
-      ).parsed_response
+      Google::Transliterate::Transliterator.new.transliterate!(
+        "kh", metadata[1].strip
+      ).gsub(/\s+/, "").encode(
+        'ASCII', :invalid => :replace, :undef => :replace, :replace => ''
+      ) if metadata[1]
     end
 
     def gender(metadata)

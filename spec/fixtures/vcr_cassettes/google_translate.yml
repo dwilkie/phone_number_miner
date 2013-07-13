@@ -42,10 +42,21 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        W1tbIkhlYXAiLCLhnqDhn4rhnrbhnoQiLCIiLCJoYSBuZyJdXSwsImttIiws
-        W1siSGVhcCIsWzRdLDAsMCwxMDAwLDAsMSwwXV0sW1si4Z6g4Z+K4Z62Iiw0
-        LFtbIkhlYXAiLDEwMDAsMCwwXSxbIkhlYW5nIiwwLDAsMF1dLFtbMCwzXV0s
-        IuGeoOGfiuGetuGehCJdXSwsLFtbImttIl1dLDFd
+        W1tbIkRhdmlkIEEuIExpZ2h0IEJlZXIgLiIsIuC5gOC4lOC4p+C4tOC4lOC5
+        hOC4peC4geC4quC5gOC4muC4teC4ouC4o+C5jCIsIiIsIkRld2lkIGzhu4tr
+        c8yEIGJlxKt5csySIl1dLCwidGgiLCxbWyJEYXZpZCIsWzRdLDEsMCw5OTAs
+        MCwxLDBdLFsiQS4iLFs1XSwxLDAsNTk1LDEsMiwwXSxbIkxpZ2h0IixbNl0s
+        MSwwLDU5MiwyLDMsMF0sWyJCZWVyIixbN10sMSwwLDU5MiwzLDQsMF0sWyIu
+        IixbOF0sMCwwLDU5Miw0LDUsMF1dLFtbIuC5gOC4lOC4p+C4tOC4lCIsNCxb
+        WyJEYXZpZCIsOTkwLDEsMF0sWyJCeSBEYXZpZCIsMCwxLDBdXSxbWzAsNV1d
+        LCLguYDguJTguKfguLTguJTguYTguKXguIHguKrguYDguJrguLXguKLguKPg
+        uYwiXSxbIuC4gSIsNSxbWyJBLiIsNTk1LDEsMF0sWyJXIiwxMiwxLDBdLFsi
+        TmV3cyIsNiwxLDBdLFsiUmVwdWJsaWMiLDAsMSwwXV0sW1s3LDhdXSwiIl0s
+        WyLguYTguKUiLDYsW1siTGlnaHQiLDU5MiwxLDBdLFsiTGl2ZSIsMTUsMSww
+        XSxbIkhlYWQiLDIsMSwwXSxbImxpbmUiLDAsMSwwXSxbIkxlaWRlbiIsMCwx
+        LDBdXSxbWzUsN11dLCIiXSxbIuC4qiDguYDguJrguLXguKLguKPguYwiLDcs
+        W1siQmVlciIsNTkyLDEsMF1dLFtbOCwxNV1dLCIiXSxbIi4iLDgsW1siLiIs
+        NTkyLDAsMF1dLFtbOSwxNV1dLCIiXV0sLCxbWyJ0aCJdXSw5N10=
     http_version: '1.1'
   recorded_at: Thu, 11 Jul 2013 12:19:12 GMT
 - request:

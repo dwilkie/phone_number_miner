@@ -22,6 +22,8 @@ module PhoneNumberMiner
           metadata.should have_key("age")
           metadata.should have_key("name")
           metadata.should have_key("location")
+          metadata["name"].should_not =~ /\s+/         # assert all spaces are removed
+          metadata["name"].should_not =~ /(?:ị|s̄|ī|r̒)/ # assert non-ASCII characters are removed
           [nil, "m", "f"].should include(metadata["gender"])
         end
       end
