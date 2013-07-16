@@ -5,7 +5,6 @@ require 'phone_number_miner/angkor_thom'
 
 module PhoneNumberMiner
   describe AngkorThom do
-
     def with_vcr(options = {}, &block)
       options[:google_translate_cassette] ||= :google_translate
       VCR.use_cassette(:angkor_thom) do
@@ -49,6 +48,22 @@ module PhoneNumberMiner
           results = with_vcr { subject.mine!(424, 189) }
           results.size.should == 0
         end
+      end
+    end
+
+    describe "#latest_angkor_thom_page" do
+      it "should return the lastest angkor thom page index" do
+        subject.latest_angkor_thom_page.should == 0
+        with_vcr { subject.mine! }
+        subject.latest_angkor_thom_page.should == 424 # from VCR cassette
+      end
+    end
+
+    describe "#latest_dara_page" do
+      it "should return the lastest dara page index" do
+        subject.latest_dara_page.should == 0
+        with_vcr { subject.mine! }
+        subject.latest_dara_page.should == 189 # from VCR cassette
       end
     end
   end

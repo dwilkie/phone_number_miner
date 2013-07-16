@@ -12,8 +12,12 @@ module PhoneNumberMiner
 
     BASE_URL = "http://akt-media.com/friendship.php?f="
     COUNTRY_ID = "855"
-    ANGKOR_THOM_CATALOGUE_ID = 2
-    DARA_CATALOGUE_ID = 3
+
+    CATALOGUES = {
+      :angkor_thom => 2,
+      :dara => 3
+    }
+
     KHMER_NUMERALS = ["០", "១", "២", "៣", "៤", "៥", "៦", "៧", "៨", "៩"]
     PROVINCE_ABBREVIATIONS = {
       "ប.ជ" => "Banteay Meanchey",
@@ -44,10 +48,13 @@ module PhoneNumberMiner
 
     def mine!(angkor_thom_page = nil, dara_page = nil)
       phone_numbers = {}
-      catalogues(angkor_thom_page, dara_page).each do |catalogue_id, start_page|
+      phone_number_catalogues = catalogues(angkor_thom_page, dara_page)
+      @latest_catalogue_pages = phone_number_catalogues.dup
+      phone_number_catalogues.each do |catalogue_id, start_page|
         catalogue = visit_catalogue(catalogue_id)
         page_range(start_page).each do |potential_page|
           if page_link = link_to_page(catalogue, potential_page)
+            @latest_catalogue_pages[catalogue_id] = potential_page
             page_link.click
             agent.page.search("#left_layout table li p").first.children.each do |child|
               child_text = child.text
@@ -72,7 +79,19 @@ module PhoneNumberMiner
       phone_numbers
     end
 
+    def latest_angkor_thom_page
+      latest_catalogue_pages[CATALOGUES[:angkor_thom]].to_i
+    end
+
+    def latest_dara_page
+      latest_catalogue_pages[CATALOGUES[:dara]].to_i
+    end
+
     private
+
+    def latest_catalogue_pages
+      @latest_catalogue_pages ||= {}
+    end
 
     def location(metadata)
       khmer_location = metadata[3].to_s.strip
@@ -113,8 +132,8 @@ module PhoneNumberMiner
 
     def catalogues(angkor_thom_page, dara_page)
       {
-        ANGKOR_THOM_CATALOGUE_ID => angkor_thom_page.to_i + 1,
-        DARA_CATALOGUE_ID => dara_page.to_i + 1
+        CATALOGUES[:angkor_thom] => angkor_thom_page.to_i + 1,
+        CATALOGUES[:dara] => dara_page.to_i + 1
       }
     end
 
