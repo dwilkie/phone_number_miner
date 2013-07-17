@@ -56,7 +56,7 @@ module PhoneNumberMiner
           if page_link = link_to_page(catalogue, potential_page)
             @latest_catalogue_pages[catalogue_id] = potential_page
             page_link.click
-            agent.page.search("#left_layout table li p").first.children.each do |child|
+            page_data(agent.page).each do |child|
               child_text = child.text
               if child_text =~ /(\d+\-\d+)/
                 formatted_number = $~[1].gsub("-", "")
@@ -88,6 +88,11 @@ module PhoneNumberMiner
     end
 
     private
+
+    def page_data(page)
+      data_page = page.search("#left_layout table li p").first
+      page_data = data_page ? data_page.children : []
+    end
 
     def latest_catalogue_pages
       @latest_catalogue_pages ||= {}
