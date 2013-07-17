@@ -91,7 +91,7 @@ module PhoneNumberMiner
 
     def page_data(page)
       data_page = page.search("#left_layout table li p").first
-      page_data = data_page ? data_page.children : []
+      data_page ? data_page.children : []
     end
 
     def latest_catalogue_pages
