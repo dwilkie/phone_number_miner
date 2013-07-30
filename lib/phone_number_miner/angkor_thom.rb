@@ -49,7 +49,7 @@ module PhoneNumberMiner
     def mine!(angkor_thom_page = nil, dara_page = nil)
       phone_numbers = {}
       phone_number_catalogues = catalogues(angkor_thom_page, dara_page)
-      @latest_catalogue_pages = phone_number_catalogues.dup
+      @latest_catalogue_pages = {}
       phone_number_catalogues.each do |catalogue_id, start_page|
         catalogue = visit_catalogue(catalogue_id)
         page_range(start_page).each do |potential_page|
@@ -80,14 +80,19 @@ module PhoneNumberMiner
     end
 
     def latest_angkor_thom_page
-      latest_catalogue_pages[CATALOGUES[:angkor_thom]].to_i
+      latest_catalogue_page(:angkor_thom)
     end
 
     def latest_dara_page
-      latest_catalogue_pages[CATALOGUES[:dara]].to_i
+      latest_catalogue_page(:dara)
     end
 
     private
+
+    def latest_catalogue_page(catalogue)
+      latest_page = latest_catalogue_pages[CATALOGUES[catalogue]]
+      latest_page.to_i if latest_page
+    end
 
     def page_data(page)
       data_page = page.search("#left_layout table li p").first

@@ -53,17 +53,31 @@ module PhoneNumberMiner
 
     describe "#latest_angkor_thom_page" do
       it "should return the lastest angkor thom page index" do
-        subject.latest_angkor_thom_page.should == 0
+        subject.latest_angkor_thom_page.should be_nil
         with_vcr { subject.mine! }
         subject.latest_angkor_thom_page.should == 424 # from VCR cassette
+      end
+
+      context "with no new results from angkor thom" do
+        it "should return nil" do
+          with_vcr { subject.mine!(424) }
+          subject.latest_angkor_thom_page.should be_nil
+        end
       end
     end
 
     describe "#latest_dara_page" do
       it "should return the lastest dara page index" do
-        subject.latest_dara_page.should == 0
+        subject.latest_dara_page.should be_nil
         with_vcr { subject.mine! }
         subject.latest_dara_page.should == 189 # from VCR cassette
+      end
+
+      context "with no new results from dara" do
+        it "should return nil" do
+          with_vcr { subject.mine!(nil, 189) }
+          subject.latest_dara_page.should be_nil
+        end
       end
     end
   end
