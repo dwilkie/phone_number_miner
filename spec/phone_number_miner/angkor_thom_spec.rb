@@ -32,14 +32,14 @@ module PhoneNumberMiner
       context "passing no args" do
         it "should get all the numbers from the angkor thom catalogue and the dara catalogue" do
           results = with_vcr { subject.mine! }
-          results.size.should == 554 # from VCR cassette
+          results.size.should == 553 # from VCR cassette
         end
       end
 
       context "passing an index for the angkor thom catalogue" do
         it "should get phone numbers pages with an id > the given index" do
           results = with_vcr(:google_translate_cassette => :google_translate_subset) { subject.mine!(423) }
-          results.size.should == 430 # from VCR cassette
+          results.size.should == 429 # from VCR cassette
         end
       end
 

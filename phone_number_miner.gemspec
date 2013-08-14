@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "mechanize"
   spec.add_dependency "google-transliterate"
+  spec.add_dependency "phony", ">= 2.0.0.beta10"
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"

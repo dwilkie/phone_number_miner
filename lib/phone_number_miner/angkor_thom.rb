@@ -5,6 +5,7 @@ module PhoneNumberMiner
 
   class AngkorThom
     require 'google/transliterate'
+    require 'phony'
 
     # Gets data from the following catalogue pages
     # http://akt-media.com/friendship.php?f=2
@@ -63,14 +64,16 @@ module PhoneNumberMiner
                 formatted_number.slice!(0)
                 full_number = COUNTRY_ID + formatted_number
 
-                metadata = child_text.split
+                if Phony.plausible?(full_number)
+                  metadata = child_text.split
 
-                phone_numbers[full_number] = {
-                  "gender" => gender(metadata),
-                  "name" => name(metadata),
-                  "age" => age(metadata),
-                  "location" => location(metadata)
-                }
+                  phone_numbers[full_number] = {
+                    "gender" => gender(metadata),
+                    "name" => name(metadata),
+                    "age" => age(metadata),
+                    "location" => location(metadata)
+                  }
+                end
               end
             end
           end
